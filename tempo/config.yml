@@ -1,0 +1,21 @@
+server:
+  http_listen_port: 3200
+
+distributor:
+  receivers:
+    # see https://github.com/grafana/tempo/blob/v1.2.1/modules/distributor/config.go#L33
+    # see https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver/otlpreceiver
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:4318
+
+storage:
+  trace:
+    backend: local
+    wal:
+      path: /tmp/tempo/wal
+    local:
+      path: /tmp/tempo/blocks

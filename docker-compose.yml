@@ -1,0 +1,47 @@
+# see https://github.com/compose-spec/compose-spec/blob/master/spec.md
+# see https://github.com/opencontainers/image-spec/blob/master/annotations.md
+services:
+  tempo:
+    # see https://hub.docker.com/r/grafana/tempo/tags
+    # see https://github.com/grafana/tempo/releases
+    image: grafana/tempo:1.2.1
+    command:
+      - -config.file=/etc/tempo/config.yml
+    ports:
+      # tempo.
+      # http://localhost:3200
+      - 3200:3200
+      # otlp grpc
+      # http://localhost:4317
+      - 4317:4317
+      # otlp http.
+      # http://localhost:4318
+      - 4318:4318
+    volumes:
+      - ./tempo/config.yml:/etc/tempo/config.yml
+    restart: on-failure
+  grafana:
+    # see https://hub.docker.com/r/grafana/grafana-oss/tags
+    # see https://github.com/grafana/grafana/releases
+    # see https://grafana.com/docs/grafana/latest/installation/docker/
+    image: grafana/grafana-oss:8.3.3
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      # web-management.
+      # http://localhost:3000
+      - 3000:3000
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    restart: on-failure
+  quotes:
+    build: quotes
+    environment:
+      - ASPNETCORE_URLS=http://+:8000
+    ports:
+      # api.
+      # http://localhost:8000
+      - 8000:8000
+    restart: on-failure
