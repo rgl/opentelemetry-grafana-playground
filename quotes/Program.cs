@@ -33,11 +33,10 @@ builder.Logging.Configure(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();   // make the swagger available at /swagger/v1/swagger.json
-    app.UseSwaggerUI(); // make the swagger UI available at /swagger
-}
+// enable the swagger document endpoint and swagger ui.
+app.UseSwagger();   // make the swagger available at /swagger/v1/swagger.json
+app.UseSwaggerUI(); // make the swagger UI available at /swagger
+
 app.MapControllers();
 
 app.Run();

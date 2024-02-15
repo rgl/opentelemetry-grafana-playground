@@ -15,6 +15,9 @@ docker compose ps
 # show logs.
 docker compose logs
 
+# open the quotes service swagger.
+xdg-open http://localhost:8000/swagger
+
 # destroy the environment.
 docker compose down --remove-orphans
 ```
