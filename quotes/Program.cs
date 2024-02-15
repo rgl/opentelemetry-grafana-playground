@@ -1,3 +1,4 @@
+using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -17,6 +18,8 @@ if (Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") != null)
             .AddOtlpExporter()
             .AddConsoleExporter()
         );
+    builder.Logging
+        .AddOpenTelemetry(options => options.AddOtlpExporter());
 }
 
 builder.Logging.Configure(options =>

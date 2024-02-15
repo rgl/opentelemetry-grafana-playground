@@ -10,6 +10,16 @@ services:
     volumes:
       - ./tempo/config.yml:/etc/tempo/config.yml
     restart: on-failure
+  loki:
+    # see https://hub.docker.com/r/grafana/loki/tags
+    # see https://github.com/grafana/loki/releases
+    # see https://grafana.com/docs/loki/latest/installation/docker/
+    image: grafana/loki:2.9.4
+    command:
+      - -config.file=/etc/loki/config.yml
+    volumes:
+      - ./loki/config.yml:/etc/loki/config.yml
+    restart: on-failure
   grafana:
     # see https://hub.docker.com/r/grafana/grafana-oss/tags
     # see https://github.com/grafana/grafana/releases
