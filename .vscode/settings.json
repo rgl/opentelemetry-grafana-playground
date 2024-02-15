@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "OTEL",
+        "OTLP",
         "traceparent",
         "tracestate",
         "wireshark"
