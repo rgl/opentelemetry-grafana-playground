@@ -18,6 +18,28 @@ docker compose logs
 # open the quotes service swagger.
 xdg-open http://localhost:8000/swagger
 
+# make a request.
+http \
+  --verbose \
+  http://localhost:8000/quote
+
+# make a failing request.
+http \
+  --verbose \
+  http://localhost:8000/quote?opsi=opsi
+
+# make a request that includes a parent trace.
+# NB the dotnet trace id will be set to the traceparent trace id.
+# NB the tracestate does not seem to be stored or propagated anywhere.
+http \
+  --verbose \
+  http://localhost:8000/quote \
+  traceparent:00-f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1-2f2f2f2f2f2f2f2f-01 \
+  tracestate:x.client.state=example
+
+# open grafana explore.
+xdg-open http://localhost:3000/explore
+
 # destroy the environment.
 docker compose down --remove-orphans
 ```
