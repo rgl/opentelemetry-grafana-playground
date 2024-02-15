@@ -1,6 +1,10 @@
 # About
 
-This is a [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet)/[Grafana](https://github.com/grafana/grafana)/[Tempo](https://github.com/grafana/tempo) playground.
+This is a [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet)/[Grafana](https://github.com/grafana/grafana)/[Prometheus](https://github.com/prometheus/prometheus)/[Tempo](https://github.com/grafana/tempo)/[Loki](https://github.com/grafana/loki) playground.
+
+The following components are used:
+
+![components](components.png)
 
 # Usage (Ubuntu 22.04)
 
@@ -43,6 +47,15 @@ http \
 # open grafana explore.
 xdg-open http://localhost:3000/explore
 
+# open prometheus.
+xdg-open http://localhost:9090
+
+# open alertmanager.
+xdg-open http://localhost:9093
+
+# open mailpit.
+xdg-open http://localhost:8025
+
 # destroy the environment.
 docker compose down --remove-orphans --volumes --timeout=0
 ```
@@ -57,3 +70,6 @@ docker compose down --remove-orphans --volumes --timeout=0
 # Reference
 
 * [W3C Trace Context](https://www.w3.org/TR/trace-context/).
+* [opentelemetry-dotnet repository](https://github.com/open-telemetry/opentelemetry-dotnet).
+* [OpenTelemetry in .NET documentation](https://opentelemetry.io/docs/languages/net/).
+* [OpenTelemetry.Exporter.OpenTelemetryProtocol Environment Variables](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol#environment-variables).
