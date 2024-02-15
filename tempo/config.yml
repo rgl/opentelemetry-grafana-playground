@@ -3,7 +3,7 @@ server:
 
 distributor:
   receivers:
-    # see https://github.com/grafana/tempo/blob/v1.2.1/modules/distributor/config.go#L33
+    # see https://github.com/grafana/tempo/blob/v2.3.1/modules/distributor/config.go#L34
     # see https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver/otlpreceiver
     otlp:
       protocols:
