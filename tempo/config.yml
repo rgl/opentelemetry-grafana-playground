@@ -1,3 +1,8 @@
+# see https://grafana.com/docs/tempo/latest/configuration/manifest/
+
+usage_report:
+  reporting_enabled: false
+
 server:
   http_listen_port: 3200
 
