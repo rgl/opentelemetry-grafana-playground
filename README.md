@@ -15,6 +15,9 @@ docker compose ps
 # show logs.
 docker compose logs
 
+# open a container network interface in wireshark.
+./wireshark.sh quotes
+
 # open the quotes service swagger.
 xdg-open http://localhost:8000/swagger
 
