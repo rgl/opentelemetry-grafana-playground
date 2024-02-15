@@ -7,16 +7,6 @@ services:
     image: grafana/tempo:2.3.1
     command:
       - -config.file=/etc/tempo/config.yml
-    ports:
-      # tempo.
-      # http://localhost:3200
-      - 3200:3200
-      # otlp grpc
-      # http://localhost:4317
-      - 4317:4317
-      # otlp http.
-      # http://localhost:4318
-      - 4318:4318
     volumes:
       - ./tempo/config.yml:/etc/tempo/config.yml
     restart: on-failure
@@ -36,14 +26,29 @@ services:
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning/
     restart: on-failure
+  otelcol:
+    # see https://hub.docker.com/r/otel/opentelemetry-collector-contrib/tags
+    # see https://opentelemetry.io/docs/collector/installation/
+    # see https://github.com/open-telemetry/opentelemetry-collector
+    # see https://github.com/open-telemetry/opentelemetry-collector-contrib
+    # see https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/examples/demo/docker-compose.yaml
+    image: otel/opentelemetry-collector-contrib:0.94.0
+    command:
+      - --config=/etc/otelcol/config.yml
+    ports:
+      # otlp grpc.
+      - 4317:4317
+    volumes:
+      - ./otelcol/config.yml:/etc/otelcol/config.yml
+    restart: on-failure
   quotes:
     build: quotes
     environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otelcol:4317
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - ASPNETCORE_URLS=http://+:8000
     ports:
-      # api.
+      # http api.
       # http://localhost:8000
       - 8000:8000
     restart: on-failure

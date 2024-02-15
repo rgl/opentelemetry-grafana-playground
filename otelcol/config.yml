@@ -1,0 +1,36 @@
+# see https://github.com/open-telemetry/opentelemetry-collector/blob/main/receiver/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector/blob/main/receiver/otlpreceiver/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/otlpexporter/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector/blob/main/processor/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/lokiexporter/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/translator/loki/logs_to_loki.go
+# see https://grafana.com/docs/opentelemetry/collector/send-logs-to-loki/
+# see https://github.com/grafana/loki/issues/5346
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+exporters:
+  otlp:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlp]
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [loki]
