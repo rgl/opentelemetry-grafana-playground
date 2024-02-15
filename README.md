@@ -41,7 +41,7 @@ http \
 xdg-open http://localhost:3000/explore
 
 # destroy the environment.
-docker compose down --remove-orphans
+docker compose down --remove-orphans --volumes --timeout=0
 ```
 
 # Notes
