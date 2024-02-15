@@ -3,6 +3,7 @@
 # see https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/README.md
 # see https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/otlpexporter/README.md
 # see https://github.com/open-telemetry/opentelemetry-collector/blob/main/processor/README.md
+# see https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/prometheusexporter/README.md
 # see https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/lokiexporter/README.md
 # see https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/translator/loki/logs_to_loki.go
 # see https://grafana.com/docs/opentelemetry/collector/send-logs-to-loki/
@@ -15,6 +16,8 @@ receivers:
         endpoint: 0.0.0.0:4317
 
 exporters:
+  prometheus:
+    endpoint: 0.0.0.0:8889
   otlp:
     endpoint: tempo:4317
     tls:
@@ -26,6 +29,10 @@ exporters:
 
 service:
   pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [prometheus]
     traces:
       receivers: [otlp]
       processors: []

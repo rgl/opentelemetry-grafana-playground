@@ -1,6 +1,42 @@
 # see https://github.com/compose-spec/compose-spec/blob/master/spec.md
 # see https://github.com/opencontainers/image-spec/blob/master/annotations.md
 services:
+  mailpit:
+    # see https://hub.docker.com/r/axllent/mailpit
+    # see https://github.com/axllent/mailpit
+    # see https://mailpit.axllent.org/docs/install/docker/
+    image: axllent/mailpit:v1.13.3
+    ports:
+      # http.
+      # http://localhost:8025
+      - 8025:8025
+    restart: on-failure
+  alertmanager:
+    # see https://hub.docker.com/r/prom/alertmanager
+    # see https://github.com/prometheus/alertmanager
+    image: prom/alertmanager:v0.26.0
+    command:
+      - --config.file=/etc/alertmanager.yml
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager.yml
+    ports:
+      # http.
+      - 9093:9093
+    restart: on-failure
+  prometheus:
+    # see https://hub.docker.com/r/prom/prometheus
+    # see https://github.com/prometheus/prometheus
+    image: prom/prometheus:v2.49.1
+    command:
+      - --config.file=/etc/prometheus.yml
+      - --web.enable-remote-write-receiver
+      - --enable-feature=exemplar-storage
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus.yml
+    ports:
+      # http.
+      - 9090:9090
+    restart: on-failure
   tempo:
     # see https://hub.docker.com/r/grafana/tempo/tags
     # see https://github.com/grafana/tempo/releases

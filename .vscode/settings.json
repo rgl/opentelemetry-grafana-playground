@@ -1,7 +1,12 @@
 {
     "cSpell.words": [
+        "alertmanager",
+        "alertmanagers",
         "datasources",
+        "mailpit",
+        "opentelemetry",
         "OTEL",
+        "otelcol",
         "OTLP",
         "traceparent",
         "tracestate",

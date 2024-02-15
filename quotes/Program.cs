@@ -1,4 +1,6 @@
 using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.ResourceDetectors.Container;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -12,12 +14,17 @@ builder.Services.AddSwaggerGen();
 if (Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") != null)
 {
     builder.Services.AddOpenTelemetry()
-        .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
+        .ConfigureResource(resource => resource
+            .AddService(builder.Environment.ApplicationName)
+            .AddDetector(new ContainerResourceDetector()))
+        .WithMetrics(metrics => metrics
+            .AddRuntimeInstrumentation()
+            .AddAspNetCoreInstrumentation()
+            .AddOtlpExporter())
         .WithTracing(tracing => tracing
             .AddAspNetCoreInstrumentation()
             .AddOtlpExporter()
-            .AddConsoleExporter()
-        );
+            .AddConsoleExporter());
     builder.Logging
         .AddOpenTelemetry(options => options.AddOtlpExporter());
 }
