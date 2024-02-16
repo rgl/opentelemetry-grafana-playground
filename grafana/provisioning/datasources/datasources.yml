@@ -1,3 +1,4 @@
+# see https://grafana.com/docs/grafana/latest/administration/provisioning/
 # see https://grafana.com/docs/grafana/latest/datasources/
 # see https://grafana.com/docs/grafana/latest/datasources/alertmanager/
 # see https://grafana.com/docs/grafana/latest/datasources/prometheus/
@@ -11,6 +12,7 @@ datasources:
   - name: Alertmanager
     type: alertmanager
     uid: alertmanager
+    editable: true
     url: http://alertmanager:9093
     access: proxy
     jsonData:
@@ -19,6 +21,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     uid: prometheus
+    editable: true
     access: proxy
     url: http://prometheus:9090
     jsonData:
@@ -32,12 +35,14 @@ datasources:
   - name: Tempo
     type: tempo
     uid: tempo
+    editable: true
     access: proxy
     url: http://tempo:3200
     isDefault: true
   - name: Loki
     type: loki
     uid: loki
+    editable: true
     access: proxy
     url: http://loki:3100
     jsonData:
