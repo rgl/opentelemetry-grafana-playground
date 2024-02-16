@@ -18,7 +18,14 @@ receivers:
 exporters:
   prometheus:
     endpoint: 0.0.0.0:8889
-  otlp:
+  # otlp/prometheus:
+  #   # NB the API is at, e.g., http://prometheus:9090/api/v1/otlp/v1/metrics
+  #   # NB prometheus requires tls, so we cannot yet use this without tls.
+  #   #    TODO wait for https://github.com/prometheus/prometheus/issues/13594 or configure tls.
+  #   endpoint: prometheus:9090
+  #   tls:
+  #     insecure: true
+  otlp/tempo:
     endpoint: tempo:4317
     tls:
       insecure: true
@@ -32,11 +39,11 @@ service:
     metrics:
       receivers: [otlp]
       processors: []
-      exporters: [prometheus]
+      exporters: [otlp/prometheus]
     traces:
       receivers: [otlp]
       processors: []
-      exporters: [otlp]
+      exporters: [otlp/tempo]
     logs:
       receivers: [otlp]
       processors: []

@@ -17,6 +17,8 @@ scrape_configs:
     static_configs:
       - targets: 
         - localhost:9090
+  # TODO remove this depending on the outcome of the TODO otlp/prometheus
+  #      defined in ../otelcol/config.yml.
   - job_name: otelcol
     static_configs:
       - targets:

@@ -30,6 +30,7 @@ services:
     command:
       - --config.file=/etc/prometheus.yml
       - --web.enable-remote-write-receiver
+      - --enable-feature=otlp-write-receiver
       - --enable-feature=exemplar-storage
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus.yml
