@@ -44,16 +44,19 @@ http \
   traceparent:00-f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1-2f2f2f2f2f2f2f2f-01 \
   tracestate:x.client.state=example
 
-# open grafana explore.
-xdg-open http://localhost:3000/explore
+# open grafana explore tempo (traces).
+xdg-open 'http://localhost:3000/explore?left=%7B%22datasource%22:%22Tempo%22,%22context%22:%22explore%22%7D'
 
-# open prometheus.
+# open grafana explore loki (logs).
+xdg-open 'http://localhost:3000/explore?left=%7B%22datasource%22:%22Loki%22,%22context%22:%22explore%22%7D'
+
+# open prometheus (metrics).
 xdg-open http://localhost:9090
 
-# open alertmanager.
+# open alertmanager (alerts).
 xdg-open http://localhost:9093
 
-# open mailpit.
+# open mailpit (email).
 xdg-open http://localhost:8025
 
 # destroy the environment.
