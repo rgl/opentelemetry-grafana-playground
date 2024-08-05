@@ -5,7 +5,7 @@ services:
     # see https://hub.docker.com/r/axllent/mailpit
     # see https://github.com/axllent/mailpit
     # see https://mailpit.axllent.org/docs/install/docker/
-    image: axllent/mailpit:v1.13.3
+    image: axllent/mailpit:v1.19.3
     ports:
       # http.
       # http://localhost:8025
@@ -14,7 +14,7 @@ services:
   alertmanager:
     # see https://hub.docker.com/r/prom/alertmanager
     # see https://github.com/prometheus/alertmanager
-    image: prom/alertmanager:v0.26.0
+    image: prom/alertmanager:v0.27.0
     command:
       - --config.file=/etc/alertmanager.yml
     volumes:
@@ -26,7 +26,7 @@ services:
   prometheus:
     # see https://hub.docker.com/r/prom/prometheus
     # see https://github.com/prometheus/prometheus
-    image: prom/prometheus:v2.49.1
+    image: prom/prometheus:v2.53.1
     command:
       - --config.file=/etc/prometheus.yml
       - --web.enable-remote-write-receiver
@@ -40,7 +40,7 @@ services:
   tempo:
     # see https://hub.docker.com/r/grafana/tempo/tags
     # see https://github.com/grafana/tempo/releases
-    image: grafana/tempo:2.3.1
+    image: grafana/tempo:2.5.0
     command:
       - -config.file=/etc/tempo/config.yml
     volumes:
@@ -50,7 +50,7 @@ services:
     # see https://hub.docker.com/r/grafana/loki/tags
     # see https://github.com/grafana/loki/releases
     # see https://grafana.com/docs/loki/latest/installation/docker/
-    image: grafana/loki:2.9.4
+    image: grafana/loki:3.1.0
     command:
       - -config.file=/etc/loki/config.yml
     volumes:
@@ -60,7 +60,7 @@ services:
     # see https://hub.docker.com/r/grafana/grafana-oss/tags
     # see https://github.com/grafana/grafana/releases
     # see https://grafana.com/docs/grafana/latest/installation/docker/
-    image: grafana/grafana-oss:10.0.11
+    image: grafana/grafana-oss:11.1.3
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -78,7 +78,7 @@ services:
     # see https://github.com/open-telemetry/opentelemetry-collector
     # see https://github.com/open-telemetry/opentelemetry-collector-contrib
     # see https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/examples/demo/docker-compose.yaml
-    image: otel/opentelemetry-collector-contrib:0.94.0
+    image: otel/opentelemetry-collector-contrib:0.106.1
     command:
       - --config=/etc/otelcol/config.yml
     ports:

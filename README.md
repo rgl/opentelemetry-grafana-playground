@@ -9,8 +9,9 @@ The following components are used:
 # Usage (Ubuntu 22.04)
 
 ```bash
-# create the environment defined in docker-compose.yml
+# recreate the environment defined in docker-compose.yml
 # and leave it running in the background.
+docker compose down --remove-orphans --volumes --timeout=0
 docker compose up -d --build
 
 # show running containers.

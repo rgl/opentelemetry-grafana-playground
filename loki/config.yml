@@ -1,6 +1,6 @@
 # see https://grafana.com/docs/loki/latest/configuration/
 # see https://grafana.com/docs/loki/latest/operations/storage/tsdb/
-# see https://grafana.com/docs/loki/latest/configuration/examples/#complete-local-configyaml
+# see https://grafana.com/docs/loki/latest/configure/examples/configuration-examples/#1-local-configuration-exampleyaml
 # see https://github.com/grafana/loki/blob/main/cmd/loki/loki-local-config.yaml
 
 analytics:
@@ -33,10 +33,10 @@ query_range:
 
 schema_config:
   configs:
-    - from: 2020-10-24
+    - from: 2020-05-15
       store: tsdb
       object_store: filesystem
-      schema: v12
+      schema: v13
       index:
         prefix: index_
         period: 24h
